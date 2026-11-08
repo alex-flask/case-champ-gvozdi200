@@ -103,8 +103,8 @@ components:
           example: demo_confirm_token_001
         method:
           type: string
-          enum: [card_token, sms_code, biometric_stub]
-          description: Метод подтверждения из исходного шаблона; документ 07_confirmation.md вместо biometric_stub описывает bank_app_push
+          enum: [card_token, sms_code, bank_app_push]
+          description: Метод подтверждения по 07_confirmation.md — токен карты, SMS-код или подтверждение в приложении банка
           example: card_token
 
     Error:

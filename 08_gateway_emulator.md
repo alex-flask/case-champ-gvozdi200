@@ -6,14 +6,14 @@
 
 ## 1. Сценарии (заполни таблицу)
 
-|№|Условие выбора (например, hash(order_id) mod 10)|Результат|error_code|Задержка|
+|№|Условие выбора (например, MD5(order_id) mod 10)|Результат|error_code|Задержка|
 |-|-|-|-|-|
-|1|hash mod 10 = 0..6|SUCCESS|—|0–2 с|
-|2|hash mod 10 = 7|DECLINED|INSUFFICIENT_FUNDS|0–1 с|
-|3|hash mod 10 = 8|ERROR|GATEWAY_ERROR|0–1 с|
-|4|hash mod 10 = 9|TIMEOUT|GATEWAY_TIMEOUT|30 с (дольше клиентского таймаута)|
+|1|MD5 mod 10 = 0..6|SUCCESS|—|500 мс (моделируется)|
+|2|MD5 mod 10 = 7|DECLINED|INSUFFICIENT_FUNDS|500 мс (моделируется)|
+|3|MD5 mod 10 = 8|DECLINED|CARD_DECLINED|500 мс (моделируется)|
+|4|MD5 mod 10 = 9|TIMEOUT|TIMEOUT|30 000 мс (моделируется без ожидания)|
 
-Хэш считается стабильной функцией (например, `crc32` или `sha256`), а не встроенным `hash()` в Python: он меняется между запусками и сломает детерминизм.
+В `05_app.py` сценарий выбирается по формуле `int(hashlib.md5(order_id.encode("utf-8")).hexdigest(), 16) % 10`. Встроенный `hash()` Python не используется, поскольку может меняться между запусками. Значения задержки только записываются в `gateway.log`; реального ожидания 500 мс или 30 с нет.
 
 ## 2. Правила детерминизма
 
@@ -37,9 +37,9 @@
 |amount|1500.00|Проверить, что списана ожидаемая сумма|
 |currency|RUB|Контроль валюты (поддерживается только RUB)|
 |bucket|3|Показывает, какой сценарий выбран (hash mod 10), помогает проверить детерминизм|
-|result|SUCCESS|Итог обработки: SUCCESS, DECLINED, ERROR или TIMEOUT|
+|result|SUCCESS|Итог обработки: SUCCESS, DECLINED или TIMEOUT|
 |error_code|—|Причина отказа или сбоя|
-|latency_ms|820|Видно задержку и можно проверить сценарий таймаута|
+|latency_ms|500|Смоделированная задержка: 500 мс для обычных ответов, 30000 мс для TIMEOUT|
 
 В лог не пишутся номера карт и токены подтверждения.
 
@@ -65,13 +65,13 @@
 {"result": "DECLINED", "gateway_tx_id": null, "error_code": "INSUFFICIENT_FUNDS"}
 ```
 
-Ответ при ERROR (HTTP 502):
+Ответ при DECLINED из сценария MD5 mod 10 = 8 (HTTP 200):
 
 ```json
-{"result": "ERROR", "gateway_tx_id": null, "error_code": "GATEWAY_ERROR"}
+{"result": "DECLINED", "gateway_tx_id": null, "error_code": "CARD_DECLINED"}
 ```
 
-При TIMEOUT эмулятор отвечает позже клиентского таймаута (или вообще не отвечает). Клиент считает платёж PENDING и повторяет запрос с тем же Idempotency-Key.
+При TIMEOUT эмулятор возвращает в CLI-прототипе `("TIMEOUT", "TIMEOUT", 9)`, а платёж сохраняется со статусом `PENDING`. В журнале `latency_ms` равен 30000, но реального ожидания нет. Повтор запроса с тем же `idempotency_key` возвращает прежний результат без нового вызова эмулятора. HTTP-контракт выше описывает проектируемый сервис; фактический `05_app.py` работает через CLI, не по HTTP.
 
 ## Критерий приёмки
 
