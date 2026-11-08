@@ -1,0 +1,8 @@
+{
+  "order_id": "T1_4_REPEAT_001",
+  "recipient": "clinic_medservice",
+  "purpose": "Приём кардиолога",
+  "amount": 3000.0,
+  "currency": "RUB",
+  "idempotency_key": "idem_T1_4_2026"
+}

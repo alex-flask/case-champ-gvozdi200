@@ -1,0 +1,4 @@
+{"timestamp": "2026-11-08T11:08:33Z", "request_id": "corr_4151dbed47a1443892d592fdd8a03193", "order_id": "T1_1_SUCCESS_001", "amount": "2500.00", "currency": "RUB", "bucket": 3, "result": "SUCCESS", "error_code": null, "latency_ms": 500}
+{"timestamp": "2026-11-08T11:08:46Z", "request_id": "corr_6fd444b7c6df4d6d93e7f71271c61ade", "order_id": "T1_2_DECLINE_016", "amount": "1800.00", "currency": "RUB", "bucket": 7, "result": "DECLINED", "error_code": "INSUFFICIENT_FUNDS", "latency_ms": 500}
+{"timestamp": "2026-11-08T11:09:13Z", "request_id": "corr_2e9f6d7315234991b9aeba21f4f74abf", "order_id": "T1_4_REPEAT_001", "amount": "3000.00", "currency": "RUB", "bucket": 2, "result": "SUCCESS", "error_code": null, "latency_ms": 500}
+{"timestamp": "2026-11-08T11:09:35Z", "request_id": "corr_1d22760d90644d539164a27523608dc1", "order_id": "T1_5_TIMEOUT_008", "amount": "12000.00", "currency": "RUB", "bucket": 9, "result": "TIMEOUT", "error_code": "TIMEOUT", "latency_ms": 30000}

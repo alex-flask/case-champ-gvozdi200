@@ -1,0 +1,8 @@
+{
+  "order_id": "T1_1_SUCCESS_001",
+  "recipient": "clinic_medservice",
+  "purpose": "Приём терапевта",
+  "amount": 2500.0,
+  "currency": "RUB",
+  "idempotency_key": "idem_T1_1_2026"
+}

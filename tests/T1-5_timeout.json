@@ -1,0 +1,8 @@
+{
+  "order_id": "T1_5_TIMEOUT_008",
+  "recipient": "clinic_medservice",
+  "purpose": "МРТ",
+  "amount": 12000.0,
+  "currency": "RUB",
+  "idempotency_key": "idem_T1_5_2026"
+}

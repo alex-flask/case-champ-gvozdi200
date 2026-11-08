@@ -1,0 +1,5 @@
+payment_id,order_id,recipient,purpose,amount,currency,status,error_code,idempotency_key,created_at,confirmed_at,correlation_id
+pay_7f047d3346d34f0586770d5ff4be3c04,T1_1_SUCCESS_001,clinic_medservice,Приём терапевта,2500.00,RUB,SUCCESS,,idem_T1_1_2026,2026-11-08T11:08:33Z,2026-11-08T11:08:33Z,corr_4151dbed47a1443892d592fdd8a03193
+pay_190ccbcfe01e42b39c78e88173d4d7d9,T1_2_DECLINE_016,clinic_medservice,УЗИ,1800.00,RUB,DECLINED,INSUFFICIENT_FUNDS,idem_T1_2_2026,2026-11-08T11:08:46Z,,corr_6fd444b7c6df4d6d93e7f71271c61ade
+pay_ffa9d68071d146b5892f19d60fab7f7f,T1_4_REPEAT_001,clinic_medservice,Приём кардиолога,3000.00,RUB,SUCCESS,,idem_T1_4_2026,2026-11-08T11:09:13Z,2026-11-08T11:09:13Z,corr_2e9f6d7315234991b9aeba21f4f74abf
+pay_7c92dcd115634e9bbe38dea68a136537,T1_5_TIMEOUT_008,clinic_medservice,МРТ,12000.00,RUB,PENDING,TIMEOUT,idem_T1_5_2026,2026-11-08T11:09:35Z,,corr_1d22760d90644d539164a27523608dc1
