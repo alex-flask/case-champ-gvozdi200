@@ -5,9 +5,6 @@
 
 Входной JSON содержит order_id, recipient, purpose, amount, currency,
 idempotency_key. Результаты сохраняются в payments_out.csv.
-
-Примечание: это консольная демонстрация обработки платежа, а не HTTP API.
-Отдельный этап подтверждения по confirm_token здесь не реализован.
 """
 
 import csv
